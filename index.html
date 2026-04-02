@@ -62,7 +62,7 @@
       }
 
       .app-dropdown-menu {
-        @apply absolute left-0 mt-1 bg-white dark:bg-cb-800 border border-cb-100 dark:border-cb-700 rounded-xl shadow-lg z-50 text-sm min-w-full py-1;
+        @apply absolute left-0 mt-1 bg-white dark:bg-cb-800 border border-cb-100 dark:border-cb-700 rounded-xl shadow-lg z-50 text-sm py-1 w-fit;
         display: none;
       }
 
@@ -72,6 +72,12 @@
 
       .app-dropdown-item.active {
         @apply text-cb-600 dark:text-cb-300 font-semibold;
+      }
+
+      #field-salary::-webkit-inner-spin-button,
+      #field-salary::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
       }
 
       /* ── Date Picker ───────────────────────────────────────────────────── */
@@ -472,6 +478,7 @@
             <input
               id="field-salary"
               type="number"
+              style="-moz-appearance:textfield;appearance:textfield"
               placeholder="Expected Salary"
               class="flex-1 border border-cb-200 dark:border-cb-700 dark:bg-cb-800 dark:text-cb-100 dark:placeholder-cb-500 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400"
             />
