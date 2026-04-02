@@ -73,6 +73,38 @@
       .app-dropdown-item.active {
         @apply text-cb-600 dark:text-cb-300 font-semibold;
       }
+
+      /* ── Date Picker ───────────────────────────────────────────────────── */
+      .dp-panel {
+        @apply fixed z-[9999] bg-white dark:bg-cb-800 border border-cb-200 dark:border-cb-700 rounded-xl shadow-xl p-3;
+      }
+      .dp-header {
+        @apply flex items-center justify-between mb-3;
+      }
+      .dp-nav-btn {
+        @apply w-8 h-8 flex items-center justify-center rounded-lg text-cb-500 dark:text-cb-400 hover:bg-cb-100 dark:hover:bg-cb-700 font-bold text-2xl leading-none transition duration-100 cursor-pointer;
+      }
+      .dp-month-label {
+        @apply text-sm font-semibold text-cb-800 dark:text-cb-100;
+      }
+      .dp-grid {
+        @apply grid grid-cols-7 gap-0.5;
+      }
+      .dp-weekday {
+        @apply text-xs text-cb-400 dark:text-cb-500 font-semibold text-center py-1;
+      }
+      .dp-day {
+        @apply rounded-lg py-1.5 text-sm font-medium transition duration-100 cursor-pointer text-center w-full;
+      }
+      .dp-day-normal {
+        @apply text-cb-800 dark:text-cb-200 hover:bg-cb-100 dark:hover:bg-cb-700;
+      }
+      .dp-day-today {
+        @apply ring-1 ring-cb-400 text-cb-700 dark:text-cb-300 hover:bg-cb-100 dark:hover:bg-cb-700;
+      }
+      .dp-day-selected {
+        @apply bg-cb-600 text-white hover:bg-cb-700;
+      }
     </style>
 
     <script>
@@ -379,6 +411,7 @@
     <script src="js/storage.js"></script>
     <script src="js/translations.js"></script>
     <script src="js/util.js"></script>
+    <script src="js/datepicker.js"></script>
     <script src="js/applications.js"></script>
 
     <div
@@ -510,11 +543,23 @@
             <input type="hidden" id="field-jobtype" value="onsite" />
           </div>
 
-          <input
-            id="field-date"
-            type="date"
-            class="border border-cb-200 dark:border-cb-700 dark:bg-cb-800 dark:text-cb-100 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400"
-          />
+          <!-- Date Picker -->
+          <div id="datepicker-wrapper">
+            <button
+              id="field-date-trigger"
+              type="button"
+              class="w-full text-left border border-cb-200 dark:border-cb-700 dark:bg-cb-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400 flex items-center justify-between gap-2 cursor-pointer"
+            >
+              <span id="field-date-display" class="text-cb-400 dark:text-cb-500">DD/MM/YYYY</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cb-400 dark:text-cb-500 shrink-0">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+            </button>
+            <input type="hidden" id="field-date" />
+          </div>
           <p id="error-date" class="hidden text-xs text-red-500 mt-1">
             Date is required.
           </p>

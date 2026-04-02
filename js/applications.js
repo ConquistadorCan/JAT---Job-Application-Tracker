@@ -65,7 +65,7 @@ function renderTable() {
     row.innerHTML = `
       <td class="py-3 px-6">${app.company}</td>
       <td class="py-3 px-6">${app.position}</td>
-      <td class="py-3 px-6">${app.dateApplied}</td>
+      <td class="py-3 px-6">${app.dateApplied ? app.dateApplied.split("-").reverse().join("/") : ""}</td>
       <td class="py-3 px-6">${app.city || ""}</td>
       <td class="py-3 px-6"><span class="badge badge-${app.jobType}">${t(app.jobType)}</span></td>
       <td class="py-3 px-6">${salaryHidden ? "******" : formatSalary(app.salary, app.currency)}</td>
@@ -180,7 +180,7 @@ function openModal() {
   const settings = getSettings();
   const today = new Date().toISOString().split("T")[0];
 
-  document.getElementById("field-date").value = today;
+  setDatePickerValue(today);
   setDropdownValue("field-currency", settings.currency);
   setDropdownValue("field-status", settings.status);
   setDropdownValue("field-jobtype", settings.jobType);
@@ -198,8 +198,9 @@ function openModal() {
 
 function closeModal() {
   document.getElementById("modal").classList.add("hidden");
+  dpClose();
 
-  const validFields = ["field-company", "field-position", "field-date"];
+  const validFields = ["field-company", "field-position"];
   const errorFields = ["error-company", "error-position", "error-date"];
 
   validFields.forEach((id) => {
@@ -207,19 +208,21 @@ function closeModal() {
     el.classList.remove("border-red-400", "focus:ring-red-400");
     el.classList.add("border-cb-200", "focus:ring-cb-400");
   });
+
+  const dateTrigger = document.getElementById("field-date-trigger");
+  dateTrigger.classList.remove("border-red-400", "focus:ring-red-400");
+  dateTrigger.classList.add("border-cb-200", "focus:ring-cb-400");
+
   errorFields.forEach((id) =>
     document.getElementById(id).classList.add("hidden"),
   );
 }
 
 function clearForm() {
-  [
-    "field-company",
-    "field-position",
-    "field-date",
-    "field-city",
-    "field-salary",
-  ].forEach((id) => (document.getElementById(id).value = ""));
+  ["field-company", "field-position", "field-city", "field-salary"].forEach(
+    (id) => (document.getElementById(id).value = ""),
+  );
+  setDatePickerValue("");
   // Custom dropdown'ları default değerlerine sıfırla
   const settings = getSettings();
   setDropdownValue("field-jobtype", settings.jobType);
@@ -264,19 +267,20 @@ function validateForm() {
   const fields = [
     { id: "field-company", errorId: "error-company" },
     { id: "field-position", errorId: "error-position" },
-    { id: "field-date", errorId: "error-date" },
+    { id: "field-date", errorId: "error-date", styleId: "field-date-trigger" },
   ];
 
   let isValid = true;
 
-  fields.forEach(({ id, errorId }) => {
+  fields.forEach(({ id, errorId, styleId }) => {
     const input = document.getElementById(id);
+    const styleEl = document.getElementById(styleId || id);
     const error = document.getElementById(errorId);
     const empty = !input.value.trim();
-    input.classList.toggle("border-red-400", empty);
-    input.classList.toggle("focus:ring-red-400", empty);
-    input.classList.toggle("border-cb-200", !empty);
-    input.classList.toggle("focus:ring-cb-400", !empty);
+    styleEl.classList.toggle("border-red-400", empty);
+    styleEl.classList.toggle("focus:ring-red-400", empty);
+    styleEl.classList.toggle("border-cb-200", !empty);
+    styleEl.classList.toggle("focus:ring-cb-400", !empty);
     error.classList.toggle("hidden", !empty);
     if (empty) isValid = false;
   });
