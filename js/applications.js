@@ -185,20 +185,16 @@ function openModal() {
   setDropdownValue("field-status", settings.status);
   setDropdownValue("field-jobtype", settings.jobType);
 
-  document.getElementById("position-datalist").innerHTML =
-    settings.positionSuggestions
-      .map((s) => `<option value="${s}"></option>`)
-      .join("");
-  document.getElementById("city-datalist").innerHTML = settings.citySuggestions
-    .map((s) => `<option value="${s}"></option>`)
-    .join("");
-
   document.getElementById("modal").classList.remove("hidden");
 }
 
 function closeModal() {
   document.getElementById("modal").classList.add("hidden");
   dpClose();
+  const posInput = document.getElementById("field-position");
+  const cityInput = document.getElementById("field-city");
+  if (posInput._comboboxClose) posInput._comboboxClose();
+  if (cityInput._comboboxClose) cityInput._comboboxClose();
 
   const validFields = ["field-company", "field-position"];
   const errorFields = ["error-company", "error-position", "error-date"];
@@ -445,6 +441,64 @@ function setupAppDropdown(btnId, menuId, hiddenInputId, labelId, onSelect) {
   });
 }
 
+function setupCombobox(inputId, getSuggestions) {
+  const input = document.getElementById(inputId);
+  if (!input) return;
+
+  const panel = document.createElement("div");
+  panel.className = "combobox-menu";
+  panel.addEventListener("click", (e) => e.stopPropagation());
+  document.body.appendChild(panel);
+
+  function getFiltered() {
+    const q = input.value.trim().toLowerCase();
+    const all = getSuggestions();
+    return q ? all.filter((s) => s.toLowerCase().includes(q)) : all.slice(0, 10);
+  }
+
+  function positionPanel() {
+    const rect = input.getBoundingClientRect();
+    panel.style.minWidth = rect.width + "px";
+    panel.style.left = rect.left + "px";
+    panel.style.top = rect.bottom + 4 + "px";
+    const pr = panel.getBoundingClientRect();
+    if (pr.right > window.innerWidth - 8)
+      panel.style.left = Math.max(8, rect.right - pr.width) + "px";
+    if (pr.bottom > window.innerHeight - 8)
+      panel.style.top = rect.top - pr.height - 4 + "px";
+  }
+
+  function openPanel() {
+    const suggestions = getFiltered();
+    if (!suggestions.length) { closePanel(); return; }
+    panel.innerHTML = suggestions
+      .map((s) => `<div class="app-dropdown-item" data-value="${s.replace(/"/g, "&quot;")}">${s}</div>`)
+      .join("");
+    panel.querySelectorAll(".app-dropdown-item").forEach((item) => {
+      item.addEventListener("mousedown", (e) => e.preventDefault());
+      item.addEventListener("click", (e) => {
+        e.stopPropagation();
+        input.value = item.dataset.value;
+        closePanel();
+        input.classList.remove("border-red-400", "focus:ring-red-400");
+        input.classList.add("border-cb-200", "focus:ring-cb-400");
+      });
+    });
+    panel.style.display = "block";
+    positionPanel();
+  }
+
+  function closePanel() {
+    panel.style.display = "none";
+    panel.innerHTML = "";
+  }
+
+  input.addEventListener("input", openPanel);
+  input.addEventListener("focus", openPanel);
+  input.addEventListener("click", (e) => e.stopPropagation());
+  input._comboboxClose = closePanel;
+}
+
 function setDropdownValue(hiddenInputId, value) {
   const input = document.getElementById(hiddenInputId);
   if (!input) return;
@@ -523,6 +577,9 @@ document.addEventListener("DOMContentLoaded", () => {
     "label-field-status",
   );
 
+  setupCombobox("field-position", () => getSettings().positionSuggestions);
+  setupCombobox("field-city", () => getSettings().citySuggestions);
+
   // Sort — ortak helper
   function setupSortHandler(column, iconId, otherIconId) {
     document
@@ -589,6 +646,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     document.querySelectorAll(".app-dropdown-menu").forEach((m) => {
       m.style.display = "none";
+    });
+    document.querySelectorAll(".combobox-menu").forEach((m) => {
+      m.style.display = "none";
+      m.innerHTML = "";
     });
   });
 });

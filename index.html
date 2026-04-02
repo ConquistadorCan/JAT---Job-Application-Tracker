@@ -74,6 +74,11 @@
         @apply text-cb-600 dark:text-cb-300 font-semibold;
       }
 
+      .combobox-menu {
+        @apply fixed bg-white dark:bg-cb-800 border border-cb-100 dark:border-cb-700 rounded-xl shadow-lg z-[9999] text-sm py-1 w-fit;
+        display: none;
+      }
+
       #field-salary::-webkit-inner-spin-button,
       #field-salary::-webkit-outer-spin-button {
         -webkit-appearance: none;
@@ -453,26 +458,26 @@
             Company is required.
           </p>
 
-          <input
-            id="field-position"
-            type="text"
-            placeholder="Position"
-            list="position-datalist"
-            class="border border-cb-200 dark:border-cb-700 dark:bg-cb-800 dark:text-cb-100 dark:placeholder-cb-500 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400"
-          />
-          <datalist id="position-datalist"></datalist>
+          <div id="combobox-wrapper-position">
+            <input
+              id="field-position"
+              type="text"
+              autocomplete="off"
+              class="w-full border border-cb-200 dark:border-cb-700 dark:bg-cb-800 dark:text-cb-100 dark:placeholder-cb-500 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400"
+            />
+          </div>
           <p id="error-position" class="hidden text-xs text-red-500 mt-1">
             Position is required.
           </p>
 
-          <input
-            id="field-city"
-            type="text"
-            placeholder="City"
-            list="city-datalist"
-            class="border border-cb-200 dark:border-cb-700 dark:bg-cb-800 dark:text-cb-100 dark:placeholder-cb-500 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400"
-          />
-          <datalist id="city-datalist"></datalist>
+          <div id="combobox-wrapper-city">
+            <input
+              id="field-city"
+              type="text"
+              autocomplete="off"
+              class="w-full border border-cb-200 dark:border-cb-700 dark:bg-cb-800 dark:text-cb-100 dark:placeholder-cb-500 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400"
+            />
+          </div>
 
           <div class="flex gap-2">
             <input
