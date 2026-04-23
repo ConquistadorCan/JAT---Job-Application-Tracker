@@ -96,6 +96,15 @@ const TRANSLATIONS = {
     settingsCityTitle: "City Suggestions",
     settingsCityDesc: "Press Enter to add a new suggestion",
     btnSaveSettings: "Save Settings",
+
+    // Data Management
+    settingsDataTitle: "Data Management",
+    settingsDataDesc: "Export or import your application data as JSON",
+    btnExport: "Export JSON",
+    btnImport: "Import JSON",
+    importConfirm: (n) => `This will replace all existing data with ${n} application(s). Continue?`,
+    importSuccess: (n) => `${n} application(s) imported successfully.`,
+    importError: "Invalid file format. Please select a valid JAT backup file.",
   },
 
   tr: {
@@ -195,6 +204,15 @@ const TRANSLATIONS = {
     settingsCityTitle: "Şehir Önerileri",
     settingsCityDesc: "Öneri eklemek için Enter'a bas",
     btnSaveSettings: "Ayarları Kaydet",
+
+    // Data Management
+    settingsDataTitle: "Veri Yönetimi",
+    settingsDataDesc: "Başvuru verilerinizi JSON olarak dışa veya içe aktarın",
+    btnExport: "JSON Dışa Aktar",
+    btnImport: "JSON İçe Aktar",
+    importConfirm: (n) => `Bu işlem tüm mevcut verilerin yerine ${n} başvuruyu koyacak. Devam edilsin mi?`,
+    importSuccess: (n) => `${n} başvuru başarıyla içe aktarıldı.`,
+    importError: "Geçersiz dosya formatı. Lütfen geçerli bir JAT yedek dosyası seçin.",
   },
 
   es: {
@@ -298,6 +316,15 @@ const TRANSLATIONS = {
     settingsCityTitle: "Sugerencias de ciudades",
     settingsCityDesc: "Pulsa Enter para añadir una nueva sugerencia",
     btnSaveSettings: "Guardar ajustes",
+
+    // Data Management
+    settingsDataTitle: "Gestión de datos",
+    settingsDataDesc: "Exporta o importa tus datos de solicitudes en JSON",
+    btnExport: "Exportar JSON",
+    btnImport: "Importar JSON",
+    importConfirm: (n) => `Esto reemplazará todos los datos existentes con ${n} solicitud(es). ¿Continuar?`,
+    importSuccess: (n) => `${n} solicitud(es) importada(s) correctamente.`,
+    importError: "Formato de archivo inválido. Por favor, selecciona un archivo de copia de seguridad JAT válido.",
   },
 
   de: {
@@ -402,6 +429,15 @@ const TRANSLATIONS = {
     settingsCityTitle: "Stadtvorschläge",
     settingsCityDesc: "Drücke Enter, um einen neuen Vorschlag hinzuzufügen",
     btnSaveSettings: "Einstellungen speichern",
+
+    // Data Management
+    settingsDataTitle: "Datenverwaltung",
+    settingsDataDesc: "Exportiere oder importiere deine Bewerbungsdaten als JSON",
+    btnExport: "JSON exportieren",
+    btnImport: "JSON importieren",
+    importConfirm: (n) => `Dadurch werden alle vorhandenen Daten durch ${n} Bewerbung(en) ersetzt. Fortfahren?`,
+    importSuccess: (n) => `${n} Bewerbung(en) erfolgreich importiert.`,
+    importError: "Ungültiges Dateiformat. Bitte wähle eine gültige JAT-Sicherungsdatei.",
   },
 
   it: {
@@ -506,6 +542,15 @@ const TRANSLATIONS = {
     settingsCityTitle: "Suggerimenti per città",
     settingsCityDesc: "Premi Invio per aggiungere un nuovo suggerimento",
     btnSaveSettings: "Salva impostazioni",
+
+    // Data Management
+    settingsDataTitle: "Gestione dei dati",
+    settingsDataDesc: "Esporta o importa i tuoi dati di candidatura in JSON",
+    btnExport: "Esporta JSON",
+    btnImport: "Importa JSON",
+    importConfirm: (n) => `Questo sostituirà tutti i dati esistenti con ${n} candidatura/e. Continuare?`,
+    importSuccess: (n) => `${n} candidatura/e importata/e con successo.`,
+    importError: "Formato file non valido. Seleziona un file di backup JAT valido.",
   },
 
   fr: {
@@ -610,6 +655,15 @@ const TRANSLATIONS = {
     settingsCityTitle: "Suggestions de villes",
     settingsCityDesc: "Appuie sur Entrée pour ajouter une nouvelle suggestion",
     btnSaveSettings: "Enregistrer les paramètres",
+
+    // Data Management
+    settingsDataTitle: "Gestion des données",
+    settingsDataDesc: "Exporte ou importe tes données de candidature en JSON",
+    btnExport: "Exporter JSON",
+    btnImport: "Importer JSON",
+    importConfirm: (n) => `Cela remplacera toutes les données existantes par ${n} candidature(s). Continuer ?`,
+    importSuccess: (n) => `${n} candidature(s) importée(s) avec succès.`,
+    importError: "Format de fichier invalide. Veuillez sélectionner un fichier de sauvegarde JAT valide.",
   },
 };
 

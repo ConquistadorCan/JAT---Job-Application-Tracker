@@ -421,6 +421,35 @@
           />
           <div id="city-suggestions-list" class="flex flex-wrap gap-2"></div>
         </div>
+
+        <!-- Data Management -->
+        <div
+          class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between px-4 sm:px-6 py-4 sm:py-5"
+        >
+          <div>
+            <p
+              id="settings-data-title"
+              class="font-semibold text-cb-800 dark:text-cb-100"
+            >
+              Data Management
+            </p>
+            <p
+              id="settings-data-desc"
+              class="text-sm text-slate-400 dark:text-cb-500 mt-0.5"
+            >
+              Export or import your application data as JSON
+            </p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button id="btn-export" class="settings-dropdown-btn">
+              Export JSON
+            </button>
+            <label id="label-import" class="settings-dropdown-btn cursor-pointer">
+              <span id="label-import-text">Import JSON</span>
+              <input id="input-import" type="file" accept=".json" class="hidden" />
+            </label>
+          </div>
+        </div>
       </main>
     </div>
 

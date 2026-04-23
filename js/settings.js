@@ -223,6 +223,10 @@ function applySettingsTranslations() {
     "settings-position-desc": "settingsPositionDesc",
     "settings-city-title": "settingsCityTitle",
     "settings-city-desc": "settingsCityDesc",
+    "settings-data-title": "settingsDataTitle",
+    "settings-data-desc": "settingsDataDesc",
+    "btn-export": "btnExport",
+    "label-import-text": "btnImport",
   };
 
   Object.entries(ids).forEach(([id, key]) => {
@@ -316,6 +320,39 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     window.location.href = "index.html";
+  });
+
+  // Export
+  document.getElementById("btn-export").addEventListener("click", () => {
+    const data = exportData();
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `jat-backup-${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  // Import
+  document.getElementById("input-import").addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      try {
+        const json = JSON.parse(ev.target.result);
+        const count = Array.isArray(json.applications) ? json.applications.length : 0;
+        if (!confirm(t("importConfirm", count))) return;
+        importData(json);
+        alert(t("importSuccess", count));
+        location.reload();
+      } catch {
+        alert(t("importError"));
+      }
+    };
+    reader.readAsText(file);
+    e.target.value = "";
   });
 
   // Close dropdowns on outside click

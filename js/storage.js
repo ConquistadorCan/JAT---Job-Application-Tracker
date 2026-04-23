@@ -55,3 +55,21 @@ function getSettings() {
 function saveSettings(settings) {
   localStorage.setItem(CONFIG.settingsKey, JSON.stringify(settings));
 }
+
+// Data export / import
+function exportData() {
+  return {
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    applications: getApplications(),
+    settings: getSettings(),
+  };
+}
+
+function importData(json) {
+  if (!Array.isArray(json.applications)) throw new Error("Invalid format");
+  saveApplications(json.applications);
+  if (json.settings && typeof json.settings === "object") {
+    saveSettings({ ...CONFIG.defaults, ...json.settings });
+  }
+}
